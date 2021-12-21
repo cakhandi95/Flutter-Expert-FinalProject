@@ -1,0 +1,20 @@
+{
+  "_id": "60c8f43c6c0b3600415acb1a",
+  "air_date": "2021-11-16",
+  "episodes": [
+    {
+      "air_date": "2021-11-16",
+      "id": 1,
+      "name": "Armageddon",
+      "overview": "When",
+      "still_path": "/btxoq1RGpcnEBmqAra5yFU63VCS.jpg",
+      "vote_average": 8.5,
+      "vote_count": 2
+    }
+  ],
+  "name": "Season 8",
+  "overview": "Test",
+  "id": 1,
+  "poster_path": "/e9riYsVGK2LwahbqFel2w1DzMc8.jpg",
+  "season_number": 1
+}

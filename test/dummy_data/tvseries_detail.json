@@ -1,0 +1,43 @@
+{
+  "backdrop_path": "/xAKMj134XHQVNHLC6rWsccLMenG.jpg",
+  "first_air_date": "2021-10-12",
+  "genres": [
+    {
+      "id": 1,
+      "name": "Sci-Fi & Fantasy"
+    },
+    {
+      "id": 2,
+      "name": "Crime"
+    }
+  ],
+  "homepage": "https://www.syfy.com/chucky",
+  "id": 1,
+  "in_production": true,
+  "languages": [
+    "en"
+  ],
+  "name": "Chucky",
+  "number_of_seasons": 2,
+  "origin_country": [
+    "US"
+  ],
+  "original_language": "en",
+  "original_name": "Chucky",
+  "overview": "After a",
+  "popularity": 3574.656,
+  "poster_path": "/iF8ai2QLNiHV4anwY1TuSGZXqfN.jpg",
+  "seasons": [
+    {
+      "air_date": "2019-07-04",
+      "episode_count": 8,
+      "id": 1,
+      "name": "Season 1",
+      "overview": "",
+      "poster_path": "/iF8ai2QLNiHV4anwY1TuSGZXqfN.jpg",
+      "season_number": 1
+    }
+  ],
+  "vote_average": 8.0,
+  "vote_count": 2543
+}
