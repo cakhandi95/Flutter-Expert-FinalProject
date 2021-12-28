@@ -342,7 +342,7 @@ void main() {
     });
   });
 
-  group('save watchlist', () {
+  group('save watchlist_movies', () {
     test('should return success message when saving successful', () async {
       // arrange
       when(mockLocalDataSource.insertWatchlist(testMovieTable))
@@ -356,37 +356,37 @@ void main() {
     test('should return DatabaseFailure when saving unsuccessful', () async {
       // arrange
       when(mockLocalDataSource.insertWatchlist(testMovieTable))
-          .thenThrow(DatabaseException('Failed to add watchlist'));
+          .thenThrow(DatabaseException('Failed to add watchlist_movies'));
       // act
       final result = await repository.saveWatchlist(testMovieDetail);
       // assert
-      expect(result, Left(DatabaseFailure('Failed to add watchlist')));
+      expect(result, Left(DatabaseFailure('Failed to add watchlist_movies')));
     });
   });
 
-  group('remove watchlist', () {
+  group('remove watchlist_movies', () {
     test('should return success message when remove successful', () async {
       // arrange
       when(mockLocalDataSource.removeWatchlist(testMovieTable))
-          .thenAnswer((_) async => 'Removed from watchlist');
+          .thenAnswer((_) async => 'Removed from watchlist_movies');
       // act
       final result = await repository.removeWatchlist(testMovieDetail);
       // assert
-      expect(result, Right('Removed from watchlist'));
+      expect(result, Right('Removed from watchlist_movies'));
     });
 
     test('should return DatabaseFailure when remove unsuccessful', () async {
       // arrange
       when(mockLocalDataSource.removeWatchlist(testMovieTable))
-          .thenThrow(DatabaseException('Failed to remove watchlist'));
+          .thenThrow(DatabaseException('Failed to remove watchlist_movies'));
       // act
       final result = await repository.removeWatchlist(testMovieDetail);
       // assert
-      expect(result, Left(DatabaseFailure('Failed to remove watchlist')));
+      expect(result, Left(DatabaseFailure('Failed to remove watchlist_movies')));
     });
   });
 
-  group('get watchlist status', () {
+  group('get watchlist_movies status', () {
     test('should return watch status whether data is found', () async {
       // arrange
       final tId = 1;
@@ -398,7 +398,7 @@ void main() {
     });
   });
 
-  group('get watchlist movies', () {
+  group('get watchlist_movies movies', () {
     test('should return list of Movies', () async {
       // arrange
       when(mockLocalDataSource.getWatchlistMovies())

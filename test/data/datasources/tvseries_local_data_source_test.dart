@@ -15,7 +15,7 @@ void main() {
     dataSource = TVSeriesLocalDataSourceImpl(databaseHelper: mockDatabaseHelper);
   });
 
-  group('save watchlist', () {
+  group('save watchlist_movies', () {
     test('should return success message when insert to database is success',
             () async {
           // arrange
@@ -39,7 +39,7 @@ void main() {
         });
   });
 
-  group('remove watchlist', () {
+  group('remove watchlist_movies', () {
     test('should return success message when remove from database is success',
             () async {
           // arrange
@@ -86,7 +86,7 @@ void main() {
     });
   });
 
-  group('get watchlist tvseries', () {
+  group('get watchlist_movies tvseries', () {
     test('should return list of TVSeriesTable from database', () async {
       // arrange
       when(mockDatabaseHelper.getWatchlistTVSeries())

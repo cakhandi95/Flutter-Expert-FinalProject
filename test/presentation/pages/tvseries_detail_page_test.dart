@@ -29,7 +29,7 @@ void main() {
   }
 
   testWidgets(
-      'Watchlist button should display add icon when movie not added to watchlist',
+      'Watchlist button should display add icon when movie not added to watchlist_movies',
       (WidgetTester tester) async {
     when(mockNotifier.tvseriesState).thenReturn(RequestState.Loaded);
     when(mockNotifier.tvseries).thenReturn(testTVSeriesDetail);
@@ -61,7 +61,7 @@ void main() {
   });
 
   testWidgets(
-      'Watchlist button should display Snackbar when added to watchlist',
+      'Watchlist button should display Snackbar when added to watchlist_movies',
       (WidgetTester tester) async {
     when(mockNotifier.tvseriesState).thenReturn(RequestState.Loaded);
     when(mockNotifier.tvseries).thenReturn(testTVSeriesDetail);
@@ -84,7 +84,7 @@ void main() {
   });
 
   testWidgets(
-      'Watchlist button should display AlertDialog when add to watchlist failed',
+      'Watchlist button should display AlertDialog when add to watchlist_movies failed',
       (WidgetTester tester) async {
     when(mockNotifier.tvseriesState).thenReturn(RequestState.Loaded);
     when(mockNotifier.tvseries).thenReturn(testTVSeriesDetail);

@@ -11,3 +11,5 @@ Future<SecurityContext> get globalContext async {
   securityContext.setTrustedCertificatesBytes(sslCert.buffer.asInt8List());
   return securityContext;
 }
+
+enum TypeCinema { Movie, TvSeries }
