@@ -4,6 +4,7 @@ import 'package:ditonton/domain/entities/tvseries.dart';
 import 'package:ditonton/domain/entities/tvseries_detail.dart';
 import 'package:ditonton/domain/usecases/get_tvseries_detail.dart';
 import 'package:ditonton/domain/usecases/get_tvseries_recomendations.dart';
+import 'package:ditonton/domain/usecases/get_watchlist_status_tvseries.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -18,10 +19,10 @@ part 'tv_series_detail_state.dart';
 
 class TvSeriesDetailBloc extends Bloc<TvSeriesDetailEvent,TvSeriesDetailState> {
 
-  TvSeriesDetailBloc(GetTVSeriesDetail getTVSeriesDetail,GetTVSeriesRecommendations getTVSeriesRecommendations) : super(TvSeriesDetailInit()) {
+  TvSeriesDetailBloc(GetTVSeriesDetail getTVSeriesDetail,GetTVSeriesRecommendations getTVSeriesRecommendations,GetWatchListStatusTVSeries getWatchListStatusTVSeries) : super(TvSeriesDetailInit()) {
     on<TvSeriesDetailEvent>((event, emit) async {
       if(event is IdTvSeriesDetailResult) {
-        onTvSeriesDetailResultData(getTVSeriesDetail, getTVSeriesRecommendations, event.id,emit);
+        onTvSeriesDetailResultData(getTVSeriesDetail, getTVSeriesRecommendations,getWatchListStatusTVSeries, event.id,emit);
       }
     });
   }
@@ -29,11 +30,14 @@ class TvSeriesDetailBloc extends Bloc<TvSeriesDetailEvent,TvSeriesDetailState> {
   Future<void> onTvSeriesDetailResultData(
       GetTVSeriesDetail getTVSeriesDetail,
       GetTVSeriesRecommendations getTVSeriesRecommendations,
+      GetWatchListStatusTVSeries getWatchListStatusTVSeries,
       int id,
       emit) async {
     emit(TvSeriesDetailIsLoading());
+
     final detailResult = await getTVSeriesDetail.execute(id);
     final recommendationResult = await getTVSeriesRecommendations.execute(id);
+    final isAddedToWatchlist = await getWatchListStatusTVSeries.execute(id);
 
     detailResult.fold((failure) {
       final state = TvSeriesDetailError(failure.message, tryAgain: () {
@@ -44,11 +48,11 @@ class TvSeriesDetailBloc extends Bloc<TvSeriesDetailEvent,TvSeriesDetailState> {
     }, (tvseries) {
       recommendationResult.fold((failure) {
         final state = TvSeriesDetailError(failure.message, tryAgain: () {
-          add(OnTvSeriesRecommendationResult(tvseries));
+          add(OnTvSeriesRecommendationResult(id));
         });
         emit(state);
       }, (movies) {
-        final successState = TvSeriesDetailLoaded(tvseries, recommendations: movies);
+        final successState = TvSeriesDetailLoaded(tvseries,isAddedToWatchlist, recommendations: movies);
         emit(successState);
       });
     });

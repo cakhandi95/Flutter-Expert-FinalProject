@@ -33,6 +33,4 @@ class PopularTvSeriesBloc extends Bloc<PopulerTvSeriesEvent,PopulerTvSeriesState
     });
 
   }
-
 }
-

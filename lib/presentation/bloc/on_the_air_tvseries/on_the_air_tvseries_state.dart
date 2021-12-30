@@ -21,12 +21,12 @@ class OnTheAirTvSeriesIsLoading extends OnTheAirTvSeriesState { }
 
 class OnTheAirTvSeriesLoaded extends OnTheAirTvSeriesState {
 
-  final List<TVSeries> onTheAirTvSeries;
+  final List<TVSeries> onTheAirTVSeries;
 
-  OnTheAirTvSeriesLoaded(this.onTheAirTvSeries);
+  OnTheAirTvSeriesLoaded(this.onTheAirTVSeries);
 
   @override
-  List<Object> get props => [onTheAirTvSeries];
+  List<Object> get props => [onTheAirTVSeries];
 }
 
 class OnTheAirTvSeriesError extends OnTheAirTvSeriesState {

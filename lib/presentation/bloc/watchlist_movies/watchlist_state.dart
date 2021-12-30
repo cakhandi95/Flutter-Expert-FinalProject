@@ -22,13 +22,13 @@ class WatchListEmpty extends WatchListState { }
 
 class WatchListLoaded extends WatchListState {
 
-  final List<Movie> data;
+  final List<Movie> watchlistMovies;
 
-  WatchListLoaded(this.data);
+  WatchListLoaded(this.watchlistMovies);
 
   @override
   // TODO: implement props
-  List<Object?> get props => [...data];
+  List<Object?> get props => [...watchlistMovies];
 }
 
 class WatchListError extends WatchListState {

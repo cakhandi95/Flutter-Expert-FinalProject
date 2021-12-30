@@ -26,13 +26,13 @@ class MovieSearchEmpty extends MovieSearchState {
 }
 
 class MovieSearchLoaded extends MovieSearchState {
-  final List<Movie> moviesLoaded;
+  final List<Movie> searchResult;
 
-  MovieSearchLoaded(this.moviesLoaded);
+  MovieSearchLoaded(this.searchResult);
 
   @override
   // TODO: implement props
-  List<Object?> get props => [moviesLoaded];
+  List<Object?> get props => [searchResult];
 }
 
 class MovieSearchError extends MovieSearchState {

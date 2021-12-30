@@ -28,11 +28,11 @@ class OnMovieDetailDataRequested extends MovieDetailEvent {
 }
 
 class OnMovieRecommendationRequested extends MovieDetailEvent {
-  final MovieDetail movieDetail;
+  final int id;
 
-  OnMovieRecommendationRequested(this.movieDetail);
+  OnMovieRecommendationRequested(this.id);
 
   @override
   // TODO: implement props
-  List<Object?> get props => [movieDetail];
+  List<Object?> get props => [id];
 }

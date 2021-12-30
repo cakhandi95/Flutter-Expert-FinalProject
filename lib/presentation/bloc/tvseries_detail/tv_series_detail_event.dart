@@ -26,11 +26,11 @@ class IdTvSeriesDetailResult extends TvSeriesDetailEvent {
 }
 
 class OnTvSeriesRecommendationResult extends TvSeriesDetailEvent {
-  final TVSeriesDetail tvSeriesDetail;
+  final int id;
 
-  OnTvSeriesRecommendationResult(this.tvSeriesDetail);
+  OnTvSeriesRecommendationResult(this.id);
 
  @override
   // TODO: implement props
-  List<Object?> get props => [tvSeriesDetail];
+  List<Object?> get props => [id];
 }

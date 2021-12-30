@@ -1,8 +1,11 @@
 import 'package:ditonton/common/state_enum.dart';
-import 'package:ditonton/presentation/provider/tvseries_episode_notifier.dart';
+import 'package:ditonton/common/utils.dart';
+import 'package:ditonton/presentation/bloc/episode_tvseries/episode_tvseries_bloc.dart';
+import 'package:ditonton/presentation/bloc/episode_tvseries/episode_tvseries_event.dart';
+import 'package:ditonton/presentation/bloc/episode_tvseries/episode_tvseries_state.dart';
 import 'package:ditonton/presentation/widgets/tvseries_episodes_card_list.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class EpisodeSeriesPage extends StatefulWidget {
   static const ROUTE_NAME = '/episode-tvseries';
@@ -19,9 +22,9 @@ class _EpisodeSeriesPageState extends State<EpisodeSeriesPage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() =>
-        Provider.of<EpisodeTVSeriesNotifier>(context, listen: false)
-            .fetchEpisodeTVSeries(widget.id,widget.season));
+    context.read<EpisodeTvSeriesBloc>().add(
+        EpisodeTvSeriesRequestData(id: widget.id, season: widget.season)
+    );
   }
 
   @override
@@ -32,28 +35,36 @@ class _EpisodeSeriesPageState extends State<EpisodeSeriesPage> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Consumer<EpisodeTVSeriesNotifier>(
-          builder: (context, data, child) {
-            if (data.state == RequestState.Loading) {
+        child: BlocConsumer<EpisodeTvSeriesBloc,EpisodeTvSeriesState>(
+          builder: (context, state) {
+            if (state is EpisodeTvSeriesIsLoading) {
               return Center(
                 child: CircularProgressIndicator(),
               );
-            } else if (data.state == RequestState.Loaded) {
+            } else if (state is EpisodeTvSeriesLoaded) {
               return ListView.builder(
                 itemBuilder: (context, index) {
-                  final tvserie = data.tvseries[index];
-                  return TVSeriesEpisodeCard(tvserie);
+                  final tvSeries = state.tvSeriesEpisode[index];
+                  return TVSeriesEpisodeCard(tvSeries);
                 },
-                itemCount: data.tvseries.length ,
+                itemCount: state.tvSeriesEpisode.length,
+              );
+            } else if (state is EpisodeTvSeriesError) {
+              return Center(
+                key: Key('error_message'),
+                child: Text(state.errMessage),
               );
             } else {
               return Center(
                 key: Key('error_message'),
-                child: Text(data.message),
+                child: Text('Error'),
               );
             }
-          },
-        ),
+          },listener: (context, state) {
+            if(state is EpisodeTvSeriesError) {
+              context.dialog(state.errMessage,state.tryAgain);
+            }
+        },),
       ),
     );
   }

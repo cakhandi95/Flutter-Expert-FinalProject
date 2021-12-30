@@ -22,8 +22,9 @@ class MovieDetailLoaded extends MovieDetailState {
 
   final MovieDetail movieDetail;
   final List<Movie> recommendations;
+  final bool isCheckedLoaded;
 
-  MovieDetailLoaded(this.movieDetail, {this.recommendations = const[]});
+  MovieDetailLoaded(this.movieDetail,this.isCheckedLoaded, {this.recommendations = const[]});
 }
 
 class MovieDetailError extends MovieDetailState {

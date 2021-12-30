@@ -3,8 +3,8 @@ import 'package:ditonton/domain/usecases/get_popular_movies.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-part 'popular_movie_state.dart';
-part 'popular_movie_event.dart';
+part 'popular_movies_state.dart';
+part 'popular_movies_event.dart';
 
 ///
 /// Created by handy on 24/12/21

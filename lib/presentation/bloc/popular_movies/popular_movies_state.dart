@@ -1,4 +1,4 @@
-part of 'popular_movie_bloc.dart';
+part of 'popular_movies_bloc.dart';
 
 ///
 /// Created by handy on 24/12/21
@@ -20,13 +20,13 @@ class PopularMovieIsLoading extends PopularMovieState { }
 
 class PopularMovieLoaded extends PopularMovieState {
 
-  final List<Movie> movies;
+  final List<Movie> popularMovies;
 
-  PopularMovieLoaded(this.movies);
+  PopularMovieLoaded(this.popularMovies);
 
   @override
   // TODO: implement props
-  List<Object?> get props => [movies];
+  List<Object?> get props => [popularMovies];
 }
 
 class PopularMovieError extends PopularMovieState {

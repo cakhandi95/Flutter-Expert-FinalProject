@@ -1,4 +1,4 @@
-part of 'popular_movie_bloc.dart';
+part of 'popular_movies_bloc.dart';
 ///
 /// Created by handy on 24/12/21
 /// HP Probook G1 430

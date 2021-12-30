@@ -21,13 +21,13 @@ class NowPlayingMovieIsLoading extends NowPlayingMovieState { }
 
 class NowPlayingMovieLoaded extends NowPlayingMovieState {
 
-  final List<Movie> movies;
+  final List<Movie> nowPlayingMovies;
 
-  NowPlayingMovieLoaded(this.movies);
+  NowPlayingMovieLoaded(this.nowPlayingMovies);
 
   @override
   // TODO: implement props
-  List<Object?> get props => [movies];
+  List<Object?> get props => [nowPlayingMovies];
 }
 
 class NowPlayingMovieError extends NowPlayingMovieState {

@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ditonton/common/constants.dart';
+import 'package:ditonton/common/utils.dart';
 import 'package:ditonton/domain/entities/tvseries.dart';
 import 'package:ditonton/presentation/pages/about_page.dart';
 import 'package:ditonton/presentation/pages/home_movie_page.dart';
@@ -9,12 +10,13 @@ import 'package:ditonton/presentation/pages/top_rated_tvseries_page.dart';
 import 'package:ditonton/presentation/pages/tvseries_detail_page.dart';
 import 'package:ditonton/presentation/pages/watchlist_movies_page.dart';
 import 'package:ditonton/presentation/pages/watchlist_tvseriespage.dart';
-import 'package:ditonton/common/state_enum.dart';
-import 'package:ditonton/presentation/provider/tvseries_list_notifier.dart';
+import 'package:ditonton/presentation/bloc/on_the_air_tvseries/on_the_air_tvseries_bloc.dart';
+import 'package:ditonton/presentation/bloc/popular_tvseries/popular_tvseries_bloc.dart';
+import 'package:ditonton/presentation/bloc/top_rated_tvseries/top_rated_tvseries_bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TVSeriesPage extends StatefulWidget {
   static const ROUTE_NAME = '/tvseries';
@@ -26,11 +28,16 @@ class _TVSeriesPageState extends State<TVSeriesPage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(
-            () => Provider.of<TVSeriesListNotifier>(context, listen: false)
-                ..fetchGetOnTheAir()
-                ..fetchGetPopular()
-                ..fetchGetTopRated()
+    context.read<OnTheAirTvSeriesBloc>().add(
+        OnTheAirTvSeriesTask()
+    );
+
+    context.read<PopularTvSeriesBloc>().add (
+        OnPopulerTvSeriesTask()
+    );
+
+    context.read<TopRatedTvSeriesBloc>().add(
+        TopRatedTvSeriesTask()
     );
   }
 
@@ -106,52 +113,70 @@ class _TVSeriesPageState extends State<TVSeriesPage> {
                 'On The Air',
                 style: kHeading6,
               ),
-              Consumer<TVSeriesListNotifier>(builder: (context, data, child) {
-                final state = data.onTheAirTVSeriesState;
-                if (state == RequestState.Loading) {
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
-                } else if (state == RequestState.Loaded) {
-                  return TVSeriesList(data.onTheAirTVSeries);
-                } else {
-                  return Text('Failed');
-                }
-              }),
+              BlocConsumer<OnTheAirTvSeriesBloc,OnTheAirTvSeriesState>(
+                  builder: (context,state) {
+                    if(state is OnTheAirTvSeriesIsLoading) {
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    } else if (state is OnTheAirTvSeriesLoaded) {
+                      return TVSeriesList(state.onTheAirTVSeries);
+                    } else {
+                      return Text('Failed');
+                    }
+                  },
+                  listener: (context, state) {
+                    if (state is OnTheAirTvSeriesError) {
+                      context.dialog(state.errMessage, state.tryAgain);
+                    }
+                  }
+                  ),
               _buildSubHeading(
                 title: 'Popular',
                 onTap: () =>
                     Navigator.pushNamed(context, PopularTVSeriesPage.ROUTE_NAME),
               ),
-              Consumer<TVSeriesListNotifier>(builder: (context, data, child) {
-                final state = data.popularTVSeriesState;
-                if (state == RequestState.Loading) {
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
-                } else if (state == RequestState.Loaded) {
-                  return TVSeriesList(data.popularTVSeries);
-                } else {
-                  return Text('Failed');
-                }
-              }),
+              BlocConsumer<PopularTvSeriesBloc,PopulerTvSeriesState>(
+                  builder: (context,state) {
+                    if(state is OnTheAirTvSeriesIsLoading) {
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    } else if (state is PopularTvSeriesLoaded) {
+                      return TVSeriesList(state.popularTVSeries);
+                    } else {
+                      return Text('Failed');
+                    }
+                  },
+                  listener: (context, state) {
+                    if (state is PopularTvSeriesError) {
+                      context.dialog(state.errMessage, state.tryAgain);
+                    }
+                  }
+              ),
               _buildSubHeading(
                 title: 'Top Rated',
                 onTap: () =>
                     Navigator.pushNamed(context, TopRatedTVSeriesPage.ROUTE_NAME),
               ),
-              Consumer<TVSeriesListNotifier>(builder: (context, data, child) {
-                final state = data.topRatedTVSeriesState;
-                if (state == RequestState.Loading) {
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
-                } else if (state == RequestState.Loaded) {
-                  return TVSeriesList(data.topRatedTVSeries);
-                } else {
-                  return Text('Failed');
-                }
-              }),
+              BlocConsumer<TopRatedTvSeriesBloc,TopRatedTvSeriesState>(
+                  builder: (context, state) {
+                    if(state is TopRatedTvSeriesIsLoading) {
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    } else if (state is TopRatedTvSeriesLoaded) {
+                      return TVSeriesList(state.topRatedTvSeries);
+                    } else {
+                      return Text('Failed');
+                    }
+                  },
+                  listener: (context, state) {
+                    if (state is TopRatedTvSeriesError) {
+                      context.dialog(state.errMessage, state.tryAgain);
+                    }
+                  }
+              ),
             ],
           ),
         ),

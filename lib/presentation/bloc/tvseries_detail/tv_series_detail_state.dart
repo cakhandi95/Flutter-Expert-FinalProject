@@ -22,8 +22,9 @@ class TvSeriesDetailLoaded extends TvSeriesDetailState {
 
   final TVSeriesDetail tvSeriesDetail;
   final List<TVSeries> recommendations;
+  final bool isCheckedLoaded;
 
-  TvSeriesDetailLoaded(this.tvSeriesDetail, {this.recommendations = const[]});
+  TvSeriesDetailLoaded(this.tvSeriesDetail,this.isCheckedLoaded, {this.recommendations = const[]});
 }
 
 class TvSeriesDetailError extends TvSeriesDetailState {

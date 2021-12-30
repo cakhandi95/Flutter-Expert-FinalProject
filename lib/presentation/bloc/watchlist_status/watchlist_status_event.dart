@@ -34,24 +34,24 @@ class OnListWatchRemoved extends WatchlistStatusEvent {
 }
 
 class OnListTvSeriesRemoved extends WatchlistStatusEvent {
-  final TVSeries tvSeries;
+  final TVSeriesDetail tvSeriesDetail;
 
-  OnListTvSeriesRemoved(this.tvSeries);
+  OnListTvSeriesRemoved(this.tvSeriesDetail);
 
   @override
   // TODO: implement props
-  List<Object?> get props => [tvSeries];
+  List<Object?> get props => [tvSeriesDetail];
 }
 
 
 class OnListTvSeriesAdded extends WatchlistStatusEvent {
-  final TVSeries tvSeries;
+  final TVSeriesDetail tvSeriesDetail;
 
-  OnListTvSeriesAdded(this.tvSeries);
+  OnListTvSeriesAdded(this.tvSeriesDetail);
 
   @override
   // TODO: implement props
-  List<Object?> get props => [tvSeries];
+  List<Object?> get props => [tvSeriesDetail];
 }
 
 

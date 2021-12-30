@@ -33,12 +33,12 @@ class WatchListTvSeriesError extends WatchListTvSeriesState {
 
 }
 class WatchListTvSeriesLoaded extends WatchListTvSeriesState {
-  final List<TVSeries> tvSeries;
+  final List<TVSeries> watchlistTVSeries;
 
-  WatchListTvSeriesLoaded(this.tvSeries);
+  WatchListTvSeriesLoaded(this.watchlistTVSeries);
 
   @override
   // TODO: implement props
-  List<Object?> get props => [tvSeries];
+  List<Object?> get props => [watchlistTVSeries];
 
 }

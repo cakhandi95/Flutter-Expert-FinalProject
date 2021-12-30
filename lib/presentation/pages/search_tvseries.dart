@@ -1,9 +1,8 @@
 import 'package:ditonton/common/constants.dart';
-import 'package:ditonton/common/state_enum.dart';
-import 'package:ditonton/presentation/provider/tvseries_search_notifier.dart';
+import 'package:ditonton/presentation/bloc/tvseries_search/tvseries_search_bloc.dart';
 import 'package:ditonton/presentation/widgets/tvseries_card_list.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SearchPageTVSeries extends StatelessWidget {
   static const ROUTE_NAME = '/search-tvseries';
@@ -22,8 +21,9 @@ class SearchPageTVSeries extends StatelessWidget {
             TextField(
               onSubmitted: (query) {
                 print(query);
-                Provider.of<TVSeriesSearchNotifier>(context, listen: false)
-                    .fetchTVSeriesSearch(query);
+                context.read<TvSeriesSearchBloc>().add(
+                    SearchTvSeriesOnQueryChanged(query)
+                );
               },
               decoration: InputDecoration(
                 hintText: 'Search title',
@@ -37,20 +37,20 @@ class SearchPageTVSeries extends StatelessWidget {
               'Search Result',
               style: kHeading6,
             ),
-            Consumer<TVSeriesSearchNotifier>(
-              builder: (context, data, child) {
-                if (data.state == RequestState.Loading) {
+            BlocConsumer<TvSeriesSearchBloc,TvSeriesSearchState>(
+              builder: (context,state) {
+                if (state is TvSeriesSearchIsLoading) {
                   return Center(
                     child: CircularProgressIndicator(),
                   );
-                } else if (data.state == RequestState.Loaded) {
-                  final result = data.searchResult;
+                } else if (state is TvSeriesSearchLoaded) {
+                  final result = state.tvSeriesLoaded;
                   return Expanded(
                     child: ListView.builder(
                       padding: const EdgeInsets.all(8),
                       itemBuilder: (context, index) {
-                        final tvseries = data.searchResult[index];
-                        return TVSeriesCard(tvseries);
+                        final tvSeries = state.tvSeriesLoaded[index];
+                        return TVSeriesCard(tvSeries);
                       },
                       itemCount: result.length,
                     ),
@@ -60,6 +60,9 @@ class SearchPageTVSeries extends StatelessWidget {
                     child: Container(),
                   );
                 }
+              },
+              listener: (context,state) {
+
               },
             ),
           ],

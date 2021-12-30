@@ -19,12 +19,12 @@ class PopularTvSeriesInit extends PopulerTvSeriesState { }
 class PopularTvSeriesIsLoading extends PopulerTvSeriesState { }
 
 class PopularTvSeriesLoaded extends PopulerTvSeriesState {
-  final List<TVSeries> popularTvSeries;
+  final List<TVSeries> popularTVSeries;
 
-  PopularTvSeriesLoaded(this.popularTvSeries);
+  PopularTvSeriesLoaded(this.popularTVSeries);
 
   @override
-  List<Object> get props => [popularTvSeries];
+  List<Object> get props => [popularTVSeries];
 }
 
 class PopularTvSeriesError extends PopulerTvSeriesState {
